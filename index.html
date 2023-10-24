@@ -24,9 +24,51 @@
             color: white;
     ">
 		<div class="container">
-			<span class="title">Setup an Art Exhibit</span>
+			<span class="title">Setup <span id="event-type">a Stand-up Comedy Show</span></span>
 			<p>Set up small to massive events and manage logistics with only a few clicks.</p>
 		</div>
+		<script>
+			let event_dom = document.getElementById("event-type");
+			const events = [
+			"a Chess Tournament",
+			"a Talent Show",
+			"a Career Fair",
+			"a Cooking Class",
+			"a Charity Fundraiser",
+			"an Art Exhibition",
+			"a Music Concert",
+			"a Sports Competition (e.g., basketball, soccer, tennis)",
+			"a Science Fair",
+			"a Trivia Night",
+			"a Wine Tasting",
+			"a Book Club Meeting",
+			"an Outdoor Movie Night",
+			"a Yoga or Fitness Workshop",
+			"a Wedding Ceremony and Reception",
+			"a Business Conference",
+			"a Birthday Party",
+			"a Charity Auction",
+			"a Dance Performance",
+			"a Science Lecture",
+			"a Craft Fair",
+			"a Community Clean-up Event",
+			"an Environmental Awareness Workshop",
+			"a Photography Exhibition",
+			"a Pet Adoption Event",
+			"a Product Launch",
+			"a Cultural Festival",
+			"an Art and Craft Workshop",
+			"a Networking Mixer",
+			"a Stand-up Comedy Show"
+			];
+			const num_events = events.length;
+			let i = 0;
+			setInterval(() => {
+				event_dom.innerHTML = events[i];
+				i += 1;
+				if (i >= num_events) i -= num_events;
+			}, 1500)
+		</script>
 		<div class="container">
 			<div class="three columns">
 				<a class="button padd">Access the beta</a>
