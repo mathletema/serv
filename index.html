@@ -24,7 +24,7 @@
             color: white;
     ">
     <div class="container">
-      <span class="title">Setup <span id="event-type">a Stand-up Comedy Show</span></span>
+      <span class="title">Setup <span id="event-type"></span></span>
       <p>Set up small to massive events and manage logistics with only a few clicks.</p>
     </div>
     <script>
@@ -59,12 +59,48 @@
         "a Comedy Show"
       ];
       const num_events = events.length;
-      let i = 0;
-      setInterval(() => {
-        event_dom.innerHTML = events[i];
-        i += 1;
-        if (i >= num_events) i -= num_events;
-      }, 1500)
+      const tick_len = 100;
+      const max_wait_ticks = 20;
+      
+      let is_deleting = false;
+      let is_waiting = false;
+      let cur_string = 0;
+      let wait_tick = 0;
+      let text_tick = 0;
+
+
+      let tick = () => {
+        if (is_waiting) {
+          wait_tick += 1;
+          if (wait_tick >= max_wait_ticks) {
+            wait_tick = 0;
+            is_waiting = false;
+            is_deleting = true;
+          }
+          event_dom.innerHTML = events[cur_string];
+          if (wait_tick % 5 < 2) event_dom.innerHTML += " |";
+          return;
+        }
+
+        if (is_deleting) {
+          text_tick -= 1;
+          if (text_tick <= 0) {
+            is_deleting = false;
+            cur_string += 1;
+            if (cur_string >= events.length) cur_string = 0;  
+          }
+          event_dom.innerHTML = events[cur_string].substring(0, text_tick) + "|";
+          return;
+        }
+
+        text_tick += 1
+        if (text_tick >= events[cur_string].length) {
+          is_waiting = true;
+        }
+        event_dom.innerHTML = events[cur_string].substring(0, text_tick) + "|";
+      }
+
+      window.setInterval(tick, tick_len);
     </script>
     <div class="container">
       <div class="three columns">
