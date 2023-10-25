@@ -111,6 +111,7 @@
         <script>
           function load_mousetrap (e) {
             $(".mousetrap-outer")[0].style.visibility = 'visible';
+            $(".mousetrap-inner")[0].style.visibility = 'visible';
           }
         </script>
       </div>
@@ -193,7 +194,7 @@
   <div class="mousetrap-outer">
     <div class="mousetrap-inner">
       <div class="mousetrap-inner-inner">
-        <h4>Contact Us!</h4>
+        <h5 style="margin-bottom: 1rem;">Contact Us!</h5>
         <form id="mousetrap-form">
           Email <br>
           <input name="email" type="email" placeholder="Email" required> <br>
@@ -202,7 +203,7 @@
           Phone <br>
           <input name="phone" type="tel" placeholder="Phone" required> <br>
           Why Serv? <br>
-          <input name="content" type="text" placeholder="Content"> <br>
+          <textarea name="content" placeholder="Content" required></textarea> <br>
           <button type="submit">Send</button>
         </form>
       </div>
@@ -213,12 +214,15 @@
   <script>
     $('#mousetrap-form').submit(function(e){
         e.preventDefault();
+        $('.mousetrap-inner')[0].style.visibility = 'hidden';
         $.ajax({
             url: "https://script.google.com/macros/s/AKfycbzeD9e9TRjKxAbynGQw29pGVfjgRbWBU7ZbO12PTE3x_mMUX9E_dk4U2JcToi82LlhnjQ/exec",
             type: 'post',
             data:$('#mousetrap-form').serialize(),
             success:function(){
-                console.log('done!');
+              alert("Succesfully submitted form!");
+              $('.mousetrap-outer')[0].style.visibility = 'hidden';
+              $('#mousetrap-form')[0].reset();
             }
         });
     });
