@@ -11,7 +11,11 @@
 
   <!-- stylesheets -->
   <link rel="stylesheet" href="assets/stylesheets/normalize.css">
+  <link rel="stylesheet" href="assets/stylesheets/skeleton.css">
   <link rel="stylesheet" href="assets/stylesheets/main.css">
+
+  <!-- scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -77,8 +81,7 @@
             is_waiting = false;
             is_deleting = true;
           }
-          event_dom.innerHTML = events[cur_string];
-          if (wait_tick % 5 < 2) event_dom.innerHTML += " |";
+          event_dom.innerHTML = events[cur_string] + ((wait_tick % 5 < 2) ? " |" : "  ");
           return;
         }
 
@@ -104,7 +107,12 @@
     </script>
     <div class="container">
       <div class="three columns">
-        <a class="button padd">Access the beta</a>
+        <a class="button padd" onclick="load_mousetrap()">Access the beta</a>
+        <script>
+          function load_mousetrap (e) {
+            $(".mousetrap-outer")[0].style.visibility = 'visible';
+          }
+        </script>
       </div>
       <div class="nine columns">
         <p class="padd">Pre register now for a three-month premium</p>
@@ -181,7 +189,44 @@
     </div>
   </div>
 
+  <!-- mousetrap -->
+  <div class="mousetrap-outer">
+    <div class="mousetrap-inner">
+      <div class="mousetrap-inner-inner">
+        <h4>Contact Us!</h4>
+        <form id="mousetrap-form">
+          Email <br>
+          <input name="email" type="email" placeholder="Email" required> <br>
+          Name <br>
+          <input name="name" type="text" placeholder="Name" required> <br>
+          Phone <br>
+          <input name="phone" type="tel" placeholder="Phone" required> <br>
+          Why Serv? <br>
+          <input name="content" type="text" placeholder="Content"> <br>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+      
+      <a onclick="close_mousetrap()" style="cursor: pointer; position: absolute; top: 0; right: 0; padding: 15px;">✖</button>
+    </div>
+  </div>
+  <script>
+    $('#mousetrap-form').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbzeD9e9TRjKxAbynGQw29pGVfjgRbWBU7ZbO12PTE3x_mMUX9E_dk4U2JcToi82LlhnjQ/exec",
+            type: 'post',
+            data:$('#mousetrap-form').serialize(),
+            success:function(){
+                console.log('done!');
+            }
+        });
+    });
 
+    function close_mousetrap() {
+      $('.mousetrap-outer')[0].style.visibility = 'hidden';
+    }
+    </script>
 </body>
 
 </html>
