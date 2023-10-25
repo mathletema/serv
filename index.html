@@ -221,8 +221,9 @@
             data:$('#mousetrap-form').serialize(),
             success:function(){
               alert("Succesfully submitted form!");
-              $('.mousetrap-outer')[0].style.visibility = 'hidden';
               $('#mousetrap-form')[0].reset();
+              $('.mousetrap-inner')[0].style.visibility = 'hidden';
+              $('.mousetrap-outer')[0].style.visibility = 'hidden';
             }
         });
     });
